@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    /* Diretórios de entrada e saída */
+    "rootDir": "src",
+    "outDir": "dist",
+    
+
+    /* Módulos e sistema de import/export */
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ES2020",
+
+    /* Permitir imports com .js e suporte ao TypeORM */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* Suporte a decorators e metadados (necessário para TypeORM) */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* Checagens de segurança e boas práticas */
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    /* Formato para Node.js moderno */
+    "moduleDetection": "force",
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
