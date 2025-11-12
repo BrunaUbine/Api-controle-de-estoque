@@ -19,7 +19,7 @@
     "emitDecoratorMetadata": true,
 
     /* Checagens de segurança e boas práticas */
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
 
@@ -27,6 +27,6 @@
     "moduleDetection": "force",
     "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }

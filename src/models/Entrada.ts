@@ -1,15 +1,29 @@
-import { DataTypes } from "sequelize";
-import { Produto } from "./produto";
-const {sequelize} = require("../config/database.js");
+import { Entity, Column, PrimaryGeneratedColumn, Decimal128, IntegerType } from 'typeorm'
+import  Produto  from "./Produto";
 
-export const Entrada = require("Entrada", {
-    id: {type: DataTypes.STRING, autoIncrement: true, primaykey: true},
-    quantidade: {type: DataTypes.INTEGER, allownull: false},
-    preco: DataTypes.DECIMAL,
-    data_entrada: {type: DataTypes.DATE, allownull:false},
-});
+@Entity()
+class Entrada{
+    
+    @PrimaryGeneratedColumn()
+    id: number;
 
-Produto.hasmany(Entrada, {foreignkey: "produto_id"});
-Entrada.belongsTo(Produto, {foreignkey: "produto_is"});
+    @Column()
+    quantidade: IntegerType;
+
+    @Column()
+    preco: Decimal128;
+
+    @Column()
+    data_entrada: Date;
+
+    constructor(quantidade: IntegerType, preco: Decimal128, data_entrada: Date){
+        this.quantidade = quantidade;
+        this.preco = preco;
+        this.data_entrada = data_entrada;
+    }
+}
+
+export default Entrada;
+
 
 

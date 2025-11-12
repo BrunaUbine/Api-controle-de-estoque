@@ -1,4 +1,4 @@
-import { DecimalDataType } from 'sequelize';
+
 import { Entity, Column, PrimaryGeneratedColumn, Decimal128, IntegerType } from 'typeorm'
 
 @Entity()
@@ -43,14 +43,5 @@ class Produto {
 }
 
 export default Produto;
-//export const Produto = sequelize.define("Produto", {
-//  id: {type: DataTypes.INTEGER, autoIncrement: true, primarykey: true },
-  //categoria: DataTypes.STRING,
-  //nome: {type: DataTypes.STRING, allownull: false},
-  //preco_custo: DataTypes.DECIMAL(10, 2),
-  //preco_venda: DataTypes.DECIMAL(10, 2),
-  //estoque_atual: {type: DataTypes.INTEGER, defaultValue: 0},
-  //estoque_minimo: {type: DataTypes.INTEGER, defaultValue: 0},
-  //validade: DataTypes.DATE,
-  //fornecedor: DataTypes.STRING,
+
 
