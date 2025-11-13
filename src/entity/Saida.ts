@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, Decimal128, IntegerType } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 import  Produto  from "./Produto";
 
 @Entity()
