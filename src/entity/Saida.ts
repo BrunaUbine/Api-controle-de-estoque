@@ -1,22 +1,21 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
-import  Produto  from "./Produto";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import Produto from "./Produto.js";
 
 @Entity()
-class Saida{
-    
-    @PrimaryGeneratedColumn()
-    id: number;
+class Saida {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    quantidade: number;
+  @Column("int")
+  quantidade: number;
 
-    @Column()
-    data_saida: Date;
+  @Column("timestamp")
+  data_saida: Date;
 
-    constructor(quantidade: number, data_entrada: Date){
-        this.quantidade = quantidade;
-        this.data_saida = data_entrada;
-    }
+  @ManyToOne(() => Produto, (produto) => produto.saidas, {
+    onDelete: "CASCADE",
+  })
+  produto: Produto;
 }
 
 export default Saida;

@@ -1,29 +1,40 @@
-import { Entity, Column, PrimaryGeneratedColumn, Decimal128, IntegerType } from 'typeorm'
-import  Produto  from "./Produto";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import Produto from "./Produto.js";
 
 @Entity()
-class Entrada{
-    
-    @PrimaryGeneratedColumn()
-    id: number;
+class Entrada {
 
-    @Column()
-    quantidade: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column("decimal", { precision: 10, scale: 2 })
-    preco: number;
+  @Column({ type: "int" })
+  quantidade: number;
 
-    @Column()
-    data_entrada: Date;
+  @Column("decimal", { precision: 10, scale: 2 })
+  preco: number;
 
-    constructor(quantidade: number, preco: number, data_entrada: Date){
-        this.quantidade = quantidade;
-        this.preco = preco;
-        this.data_entrada = data_entrada;
-    }
+  @Column({ type: "timestamp" })
+  data_entrada: Date;
+
+  @ManyToOne(() => Produto, (produto) => produto.entradas, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+    nullable: false
+  })
+  @JoinColumn({ name: "produto_id" })
+  produtos: Produto;
+
+  constructor(
+    quantidade: number,
+    preco: number,
+    data_entrada: Date,
+    produtos: Produto
+  ) {
+    this.quantidade = quantidade;
+    this.preco = preco;
+    this.data_entrada = data_entrada;
+    this.produtos = produtos;
+  }
 }
 
 export default Entrada;
-
-
-

@@ -1,15 +1,16 @@
-
-import { Entity, Column, PrimaryGeneratedColumn, Decimal128, IntegerType } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import Entrada from "./Entrada.js";
+import Saida from "./Saida.js";
 
 @Entity()
 class Produto {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column("text")
   categoria: string;
 
-  @Column()
+  @Column("text")
   nome: string;
 
   @Column("decimal", { precision: 10, scale: 2 })
@@ -18,30 +19,23 @@ class Produto {
   @Column("decimal", { precision: 10, scale: 2 })
   preco_venda: number;
 
-  @Column()
+  @Column("int", { default: 0 })
   estoque_atual: number;
 
-  @Column()
+  @Column("int", { default: 0 })
   estoque_minimo: number;
 
-  @Column()
+  @Column("date", { nullable: true })
   validade: Date;
 
-  @Column()
+  @Column("text", { nullable: true })
   fornecedor: string;
 
-  constructor(categoria: string, nome: string, preco_custo: number, preco_venda: number, estoque_atual: number, estoque_minimo: number, validade: Date, fornecedor: string){
-    this.categoria = categoria;
-    this.nome = nome;
-    this.preco_custo = preco_custo;
-    this.preco_venda = preco_venda;
-    this.estoque_atual = estoque_atual;
-    this.estoque_minimo = estoque_minimo;
-    this.validade = validade;
-    this.fornecedor = fornecedor;
-  }
+  @OneToMany(() => Entrada, (entrada) => entrada.produtos)
+  entradas: Entrada[];
+
+  @OneToMany(() => Saida, (saida) => saida.produto)
+  saidas: Saida[];
 }
 
 export default Produto;
-
-
