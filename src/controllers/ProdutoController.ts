@@ -1,5 +1,5 @@
 import { AppDataSource } from "../data-source.js";
-import  Produto  from "../entity/Produto.js";
+import  { Produto }  from "../entity/Produto.js";
 import { Request, Response } from "express";
 
 export class ProdutoController{
@@ -14,7 +14,7 @@ export class ProdutoController{
         const repo = AppDataSource.getRepository(Produto);
         const Produtos = await repo.findOneBy({id:Number(req.params.id)});
         if(!Produtos) return res.status(404).json({mensagem: "Produto não encontrado"});
-        return res.json(Produto);
+        return res.json(Produtos);
     }
 
     static async criar(req: Request, res: Response){

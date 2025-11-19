@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import Produto from "./Produto.js";
+import { Produto } from "./Produto.js";
 
 @Entity()
-class Saida {
+export class Saida {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,10 +12,10 @@ class Saida {
   @Column("timestamp")
   data_saida: Date;
 
-  @ManyToOne(() => Produto, (produto) => produto.saidas, {
+  @ManyToOne(() => Produto, (produto) => produto.saida, {
     onDelete: "CASCADE",
   })
   produto: Produto;
 }
 
-export default Saida;
+

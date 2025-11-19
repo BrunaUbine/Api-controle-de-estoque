@@ -1,5 +1,5 @@
 import { AppDataSource } from "../data-source.js";
-import Usuario from "../entity/Usuario.js";
+import { Usuario } from "../entity/Usuario.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -17,25 +17,20 @@ export class AuthController {
             return res.status(400).json({ mensagem: "Usuário já existente" });
         }
 
-        const hash = await bcrypt.hash(password, 10);
-        const novo = repo.create({ username, password: hash });
+        const novo = repo.create({ username, password });
         await repo.save(novo);
 
-        const token = jwt.sign(
-            { id: novo.id, username: novo.username },
-            process.env.JWT_SECRET as string,
-            { expiresIn: "1h" }
-        );
 
         res.status(201).json({
-            mensagem: "Usuário criado com sucesso",
-            token
-        });
+            mensagem: "Usuário criado com sucesso"});
     }
 
     static async login(req: Request, res: Response) {
         const repo = AppDataSource.getRepository(Usuario);
         const { username, password } = req.body;
+        console.log("BODY RECEBIDO:", req.body);
+        console.log("USERNAME:", username);
+        console.log("PASSWORD:", password);
 
         const usuarioOk = await repo.findOneBy({ username });
         if (!usuarioOk) {

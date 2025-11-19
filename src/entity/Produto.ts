@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import Entrada from "./Entrada.js";
-import Saida from "./Saida.js";
+import { Entrada}  from "./Entrada.js";
+import { Saida } from "./Saida.js";
 
 @Entity()
-class Produto {
+export class Produto {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -31,11 +31,11 @@ class Produto {
   @Column("text", { nullable: true })
   fornecedor: string;
 
-  @OneToMany(() => Entrada, (entrada) => entrada.produtos)
-  entradas: Entrada[];
+  @OneToMany(() => Entrada, (entrada) => entrada.produto)
+  entrada: Entrada[];
 
   @OneToMany(() => Saida, (saida) => saida.produto)
-  saidas: Saida[];
+  saida: Saida[];
 }
 
-export default Produto;
+

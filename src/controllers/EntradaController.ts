@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../data-source.js";
 
-import Entrada from "../entity/Entrada.js";
-import Produto from "../entity/Produto.js";
+import { Entrada } from "../entity/Entrada.js";
+import { Produto } from "../entity/Produto.js";
 
 export class EntradaController{
-    static async listar (req: Request, res: Response){
-        const repo = AppDataSource.getRepository(Entrada);
-        const entradas = await repo.find({relations: ["produtos"]});
-        return res.json(entradas);
-    }
+  static async listar(req: Request, res: Response) {
+    const repo = AppDataSource.getRepository(Entrada);
+
+    const entradas = await repo.find({ relations: ["produto"] });
+
+    return res.json(entradas);
+  }
 
     static async criar (req: Request, res: Response){
         try {
@@ -25,7 +27,6 @@ export class EntradaController{
 
             const novaEntrada = new Entrada(
             quantidade,
-            preco,
             new Date(),
             produtos
             );

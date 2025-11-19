@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../data-source.js";
 
-import Saida from "../entity/Saida.js";
-import Produto from "../entity/Produto.js";
+import { Saida } from "../entity/Saida.js";
+import { Produto } from "../entity/Produto.js";
 
 export class SaidaController {
   static async listar(req: Request, res: Response) {

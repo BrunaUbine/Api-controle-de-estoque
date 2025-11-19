@@ -1,8 +1,8 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { hash } from "bcryptjs";
 
 @Entity()
-class Usuario {
+export class Usuario {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,9 +18,10 @@ class Usuario {
   }
 
   @BeforeInsert()
+  @BeforeUpdate()
   async hashPassword() {
     this.password = await hash(this.password, 10);
   }
 }
 
-export default Usuario;
+
