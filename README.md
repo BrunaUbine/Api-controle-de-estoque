@@ -74,7 +74,7 @@ O token é gerado ao fazer login.
 ---
 
 ## 🧪 Testes
-Os testes serão feitos usando **Jest**, conforme os requisitos do projeto.
+Os testes serão feitos usando **Vitest e Supertest**, conforme os requisitos do projeto.
 
 ---
 
