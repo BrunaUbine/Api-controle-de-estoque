@@ -8,11 +8,14 @@ import authRoutes from "./routes/authRoutes.js";
 import produtoRoutes from "./routes/ProdutoRoutes.js";
 import entradaRoutes from "./routes/EntradaRoutes.js";
 import saidaRoutes from "./routes/SaidaRoutes.js";
+import { setupSwagger } from "./swagger.js";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+
+setupSwagger(app);
 
 app.use("/auth", authRoutes);
 app.use("/produtos", produtoRoutes);
