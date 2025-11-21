@@ -15,7 +15,7 @@ export class EntradaController{
 
     static async criar (req: Request, res: Response){
         try {
-            const {produtoId, quantidade, preco} = req.body;
+            const {produtoId, quantidade} = req.body;
 
             const repoEntrada = AppDataSource.getRepository(Entrada);
             const repoProduto = AppDataSource.getRepository(Produto);
