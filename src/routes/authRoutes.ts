@@ -17,13 +17,9 @@ const router = express.Router();
  *     UsuarioRegistro:
  *       type: object
  *       required:
- *         - nome
  *         - email
  *         - senha
  *       properties:
- *         nome:
- *           type: string
- *           example: "Bruna"
  *         email:
  *           type: string
  *           example: "bruna@gmail.com"

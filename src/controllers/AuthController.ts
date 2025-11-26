@@ -9,35 +9,58 @@ dotenv.config();
 
 export class AuthController {
     static async registrar(req: Request, res: Response) {
-        const repo = AppDataSource.getRepository(Usuario);
-        const { username, password } = req.body;
+        try {
+            const repo = AppDataSource.getRepository(Usuario);
+            
+            const { email, senha } = req.body;
 
-        const existente = await repo.findOneBy({ username });
-        if (existente) {
-            return res.status(400).json({ mensagem: "Usuário já existente" });
+            if (!email || !senha) {
+                return res.status(400).json({ mensagem: "Email e senha são obrigatórios." });
+            }
+
+            const username = email;
+            const password = senha;
+
+            const existente = await repo.findOneBy({ username });
+            if (existente) {
+                return res.status(400).json({ mensagem: "Usuário já existente" });
+            }
+
+            const hashed = await bcrypt.hash(String(password), 8);
+
+            const novo = repo.create({
+                username: String(username),
+                password: hashed,
+            });
+
+            await repo.save(novo);
+
+            return res.status(201).json({ mensagem: "Usuário criado com sucesso" });
+        } catch (err: any) {
+            console.error("ERRO registrar:", err);
+            return res.status(500).json({ erro: err.message });
         }
-
-        const novo = repo.create({ username, password });
-        await repo.save(novo);
-
-
-        res.status(201).json({
-            mensagem: "Usuário criado com sucesso"});
     }
+
 
     static async login(req: Request, res: Response) {
         const repo = AppDataSource.getRepository(Usuario);
-        const { username, password } = req.body;
-        console.log("BODY RECEBIDO:", req.body);
-        console.log("USERNAME:", username);
-        console.log("PASSWORD:", password);
+
+        const { email, senha } = req.body;
+
+        if (!email || !senha) {
+            return res.status(400).json({ mensagem: "Email e senha são obrigatórios." });
+        }
+
+        const username = email;
+        const password = senha;
 
         const usuarioOk = await repo.findOneBy({ username });
         if (!usuarioOk) {
             return res.status(404).json({ mensagem: "Usuário não encontrado" });
         }
 
-        const senhaOk = await bcrypt.compare(password, usuarioOk.password);
+        const senhaOk = await bcrypt.compare(String(password), usuarioOk.password);
         if (!senhaOk) {
             return res.status(401).json({ mensagem: "Senha incorreta" });
         }
@@ -48,7 +71,7 @@ export class AuthController {
             { expiresIn: "1h" }
         );
 
-        res.status(200).json({
+        return res.status(200).json({
             mensagem: "Login realizado com sucesso!",
             token
         });
