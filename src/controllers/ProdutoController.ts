@@ -20,9 +20,12 @@ export class ProdutoController{
     static async criar(req: Request, res: Response){
         try{
             const repo = AppDataSource.getRepository(Produto);
-            const novo = repo.create(req.body);
-            await repo.save(novo);
-            return res.status(201).json(novo);
+            const novo = repo.create(req.body as Partial<Produto>);
+            const salvo = await repo.save(novo);
+           return res.status(201).json({
+            mensagem: "Produto criado com sucesso",
+            id: salvo.id
+        });
         } catch (err: any){
             return res.status(400).json({erro: err.message});
         }

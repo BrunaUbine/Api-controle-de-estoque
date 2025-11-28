@@ -17,21 +17,71 @@ const router = express.Router();
  *   schemas:
  *     Produto:
  *       type: object
- *       required:
- *         - nome
  *       properties:
  *         id:
  *           type: integer
  *           example: 1
+ *         categoria:
+ *           type: string
+ *           example: "Eletrônicos"
  *         nome:
  *           type: string
  *           example: "Monitor Gamer"
- *         preco:
+ *         preco_custo:
+ *           type: number
+ *           example: 1000.00
+ *         preco_venda:
  *           type: number
  *           example: 1599.90
- *         quantidade:
+ *         estoque_atual:
  *           type: number
  *           example: 20
+ *         estoque_minimo:
+ *           type: number
+ *           example: 5
+ *         validade:
+ *           type: string
+ *           format: date
+ *           example: "2025-12-31"
+ *         fornecedor:
+ *           type: string
+ *           example: "Fornecedor ABC"
+
+ *     ProdutoCriar:
+ *       type: object
+ *       required:
+ *         - categoria
+ *         - nome
+ *         - preco_custo
+ *         - preco_venda
+ *         - estoque_atual
+ *         - estoque_minimo
+ *       properties:
+ *         categoria:
+ *           type: string
+ *           example: "Eletrônicos"
+ *         nome:
+ *           type: string
+ *           example: "Monitor Gamer"
+ *         preco_custo:
+ *           type: number
+ *           example: 1000.00
+ *         preco_venda:
+ *           type: number
+ *           example: 1599.90
+ *         estoque_atual:
+ *           type: number
+ *           example: 20
+ *         estoque_minimo:
+ *           type: number
+ *           example: 5
+ *         validade:
+ *           type: string
+ *           format: date
+ *           example: "2025-12-31"
+ *         fornecedor:
+ *           type: string
+ *           example: "Fornecedor XYZ"
  */
 
 /**
@@ -90,10 +140,22 @@ router.get("/:id", ProdutoController.buscar);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Produto'
+ *             $ref: '#/components/schemas/ProdutoCriar'
+
  *     responses:
  *       201:
  *         description: Produto criado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensagem:
+ *                   type: string
+ *                   example: "Produto criado com sucesso"
+ *                 id:
+ *                   type: integer
+ *                   example: 8
  *       401:
  *         description: Token inválido ou ausente
  */
@@ -116,7 +178,7 @@ router.post("/", verificaToken, ProdutoController.criar);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Produto'
+ *             $ref: '#/components/schemas/ProdutoCriar'
  *     responses:
  *       200:
  *         description: Produto atualizado com sucesso

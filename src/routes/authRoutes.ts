@@ -40,16 +40,24 @@ const router = express.Router();
  *           type: string
  *           example: "123456"
  *
- *     AuthResponse:
+ *     AuthRegistroResponse:
  *       type: object
  *       properties:
  *         mensagem:
  *           type: string
  *           example: "Usuário registrado com sucesso"
+
+ *     AuthResponse:
+ *       type: object
+ *       properties:
+ *         mensagem:
+ *           type: string
+ *           example: "Login realizado com sucesso"
  *         token:
  *           type: string
  *           example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  */
+
 
 /**
  * @swagger
@@ -69,7 +77,7 @@ const router = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AuthResponse'
+ *               $ref: '#/components/schemas/AuthRegistroResponse'
  *       400:
  *         description: Dados inválidos
  */
